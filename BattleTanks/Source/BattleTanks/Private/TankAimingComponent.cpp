@@ -21,7 +21,7 @@ void UTankAimingComponent::SetBarrelReference(UTankBarrel* BarrelToSet)
 
 void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 {
-	if (!Barrel) { return; }
+	if (!Barrel) { UE_LOG(LogTemp, Warning, TEXT("No Barrel Component; Assigned in Tank_BP")); return; }
 	FVector OutLaunchVelocity;
 	FVector StartLocation = Barrel->GetSocketLocation(FName("Projectile"));
 	// Calculate the OutLaunchVelocity
@@ -41,7 +41,11 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 		FString TankName = GetOwner()->GetName();
 		UE_LOG(LogTemp, Warning, TEXT("%s Aiming at %s"), *TankName, *AimDirection.ToString());
 
-		//MoveBarrelTowards();
+		MoveBarrelTowards(AimDirection);
+	}
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Nope"));
 	}
 }
 
@@ -51,9 +55,5 @@ void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
 	FRotator AimAsRotator = AimDirection.Rotation();
 	FRotator DeltaRotator = AimAsRotator - BarrelRotator;
 
-	Barrel->Elevate(5.f);
+	Barrel->Elevate(DeltaRotator.Pitch); // TODO remove magic number
 }
-// MoveBarrel
-	// Find start
-	// Find finish
-	// interp between two to move ypr
