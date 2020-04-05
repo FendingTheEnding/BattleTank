@@ -8,6 +8,8 @@
 // Always do this last
 #include "Tank.generated.h"
 
+class UTankBarrel; // Forward Declaration
+
 UCLASS()
 class BATTLETANKS_API ATank : public APawn
 {
@@ -25,11 +27,16 @@ protected:
 
 public:	
 	// Called every frame
-	virtual void Tick(float DeltaTime) override;
+	//virtual void Tick(float DeltaTime) override;
 
 	void AimAt(FVector HitLocation);
+
+	UFUNCTION(BlueprintCallable, Category = Setup)
+	void SetBarrelReference(UTankBarrel* BarrelToSet);
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+	UPROPERTY(EditAnywhere, Category = Firing)
+	float LaunchSpeed = 150000; // 1500 m/s
 };
