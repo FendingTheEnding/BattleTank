@@ -46,13 +46,16 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 	{
 		FVector AimDirection = OutLaunchVelocity.GetSafeNormal();
 		FString TankName = GetOwner()->GetName();
-		UE_LOG(LogTemp, Warning, TEXT("%s Aiming at %s"), *TankName, *AimDirection.ToString());
+		//UE_LOG(LogTemp, Warning, TEXT("%s Aiming at %s"), *TankName, *HitLocation.ToString());
 
-		MoveBarrelTowards(AimDirection);
+		if (HitLocation != FVector(0.0))
+		{
+			MoveBarrelTowards(AimDirection);
+		}
 	}
 	else
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Nope"));
+		UE_LOG(LogTemp, Warning, TEXT("SuggestProjectileVelocity returned FALSE in TankAimingComponent::AimAt"));
 	}
 }
 
