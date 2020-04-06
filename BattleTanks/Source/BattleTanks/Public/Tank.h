@@ -9,6 +9,7 @@
 #include "Tank.generated.h"
 
 // Forward Declaration
+class AProjectile;
 class UTankBarrel; 
 class UTankTurret;
 class UTankAimingComponent;
@@ -44,6 +45,17 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-	UPROPERTY(EditAnywhere, Category = Firing)
+	UPROPERTY(EditDefaultsOnly, Category = Firing)
 	float LaunchSpeed = 50000; // 1500 m/s
+	UPROPERTY(EditDefaultsOnly, Category = Firing)
+	float ReloadTimeInSeconds = 2.5f;
+
+	UPROPERTY(EditDefaultsOnly, Category = Setup)
+	UClass* ProjectileBlueprint; // Alternative TSubclassOf<AProjectile>* ProjectileBlueprint && Forward Declaration: class AProjectile
+
+private:
+	// Local barrel reference
+	UTankBarrel* Barrel = nullptr;
+	
+	double LastFireTime = 0.0;
 };
