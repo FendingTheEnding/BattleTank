@@ -2,6 +2,7 @@
 
 #include "Kismet/GameplayStatics.h"
 #include "TankBarrel.h"
+#include "TankTurret.h"
 #include "TankAimingComponent.h"
 
 // Sets default values for this component's properties
@@ -19,9 +20,15 @@ void UTankAimingComponent::SetBarrelReference(UTankBarrel* BarrelToSet)
 	Barrel = BarrelToSet;
 }
 
+void UTankAimingComponent::SetTurretReference(UTankTurret* TurretToSet)
+{
+	Turret = TurretToSet;
+}
+
 void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 {
 	if (!Barrel) { UE_LOG(LogTemp, Warning, TEXT("No Barrel Component; Assigned in Tank_BP")); return; }
+	if (!Turret) { UE_LOG(LogTemp, Warning, TEXT("No Turret Component; Assigned in Tank_BP")); return; }
 	FVector OutLaunchVelocity;
 	FVector StartLocation = Barrel->GetSocketLocation(FName("Projectile"));
 	// Calculate the OutLaunchVelocity
@@ -56,4 +63,5 @@ void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
 	FRotator DeltaRotator = AimAsRotator - BarrelRotator;
 
 	Barrel->Elevate(DeltaRotator.Pitch); // TODO remove magic number
+	Turret->Rotate(DeltaRotator.Yaw);
 }
