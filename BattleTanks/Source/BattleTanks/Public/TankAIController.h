@@ -26,4 +26,7 @@ public:
 private:
 	//ATank* GetControlledTank() const;
 	//ATank* GetPlayerTank() const;
+
+	// How close the AI tank will get to the player
+	float AcceptanceRadius = 3000;
 };
