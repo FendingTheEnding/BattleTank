@@ -15,7 +15,7 @@ void UTankMovementComponent::IntendMoveForward(float Throw)
 {
 	//FString Name = GetName();
 	//UE_LOG(LogTemp, Warning, TEXT("Intend move forward throw: %f"), Throw);
-
+	if (!ensure(LeftTrack && RightTrack)) { return; }
 	LeftTrack->SetThrottle(Throw);
 	RightTrack->SetThrottle(Throw);
 }
@@ -24,7 +24,7 @@ void UTankMovementComponent::IntendTurnRight(float Throw)
 {
 	//FString Name = GetName();
 	//UE_LOG(LogTemp, Warning, TEXT("Intend move forward throw: %f"), Throw);
-
+	if (!ensure(LeftTrack && RightTrack)) { return; }
 	LeftTrack->SetThrottle(Throw);
 	RightTrack->SetThrottle(-Throw);
 }

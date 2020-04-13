@@ -1,5 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
+// Copyright Kratzer 2020
 #pragma once
 
 #include "CoreMinimal.h"
@@ -28,6 +27,7 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	UPROPERTY(BlueprintReadOnly)
 	UTankAimingComponent* TankAimingComponent = nullptr;
 	//UPROPERTY(BlueprintReadOnly)
 	//UTankMovementComponent* TankMovementComponent = nullptr;
@@ -36,17 +36,19 @@ public:
 	// Called every frame
 	//virtual void Tick(float DeltaTime) override;
 
+	//UFUNCTION(BlueprintCallable, Category = Setup)
+	//void SetBarrelReference(UTankBarrel* BarrelToSet);
+	//UFUNCTION(BlueprintCallable, Category = Setup)
+	//void SetTurretReference(UTankTurret* TurretToSet);
+
+	// Called to bind functionality to input
+	//virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
 	void AimAt(FVector HitLocation);
 
-	UFUNCTION(BlueprintCallable, Category = Setup)
-	void SetBarrelReference(UTankBarrel* BarrelToSet);
-	UFUNCTION(BlueprintCallable, Category = Setup)
-	void SetTurretReference(UTankTurret* TurretToSet);
 	UFUNCTION(BlueprintCallable)
 	void Fire();
 
-	// Called to bind functionality to input
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 	UPROPERTY(EditDefaultsOnly, Category = Firing)
 	float LaunchSpeed = 50000; // 1500 m/s
@@ -58,7 +60,7 @@ public:
 
 private:
 	// Local barrel reference
-	UTankBarrel* Barrel = nullptr;
+	UTankBarrel* Barrel = nullptr; //TODO remove
 	
 	double LastFireTime = 0.0;
 };

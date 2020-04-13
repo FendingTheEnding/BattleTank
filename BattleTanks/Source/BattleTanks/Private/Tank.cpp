@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Copyright Kratzer 2020
 
 
 #include "Tank.h"
@@ -14,7 +14,7 @@ ATank::ATank()
 	PrimaryActorTick.bCanEverTick = false;
 
 	// No need to protect pointers added in constructor
-	TankAimingComponent = CreateDefaultSubobject<UTankAimingComponent>(FName("Aiming Component"));
+	//TankAimingComponent = CreateDefaultSubobject<UTankAimingComponent>(FName("Aiming Component"));
 	//TankMovementComponent = CreateDefaultSubobject<UTankMovementComponent>(FName("Movement Component"));
 }
 
@@ -22,6 +22,8 @@ ATank::ATank()
 void ATank::BeginPlay()
 {
 	Super::BeginPlay();
+
+	TankAimingComponent = FindComponentByClass<UTankAimingComponent>();
 	
 }
 
@@ -32,7 +34,7 @@ void ATank::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 
 }
-*/
+
 
 // Called to bind functionality to input
 void ATank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -40,13 +42,16 @@ void ATank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
 }
+*/
 
 void ATank::AimAt(FVector HitLocation)
 {
+	if (!TankAimingComponent) { UE_LOG(LogTemp, Warning, TEXT("No Tank Aiming Component; Assigned in Tank_BP")); return; }
 	TankAimingComponent->AimAt(HitLocation, LaunchSpeed);
 	
 }
 
+/*
 // Called via blueprint
 void ATank::SetBarrelReference(UTankBarrel* BarrelToSet)
 {
@@ -59,12 +64,13 @@ void ATank::SetTurretReference(UTankTurret* TurretToSet)
 {
 	TankAimingComponent->SetTurretReference(TurretToSet);
 }
+*/
 
 void ATank::Fire()
 {
 	bool isReloaded = (FPlatformTime::Seconds() - LastFireTime) > ReloadTimeInSeconds;
 	if (!Barrel) { UE_LOG(LogTemp, Warning, TEXT("No Barrel reference in tank cpp")); return; }
-	if (Barrel && isReloaded)
+	if (isReloaded)
 	{
 		AProjectile* Projectile = GetWorld()->SpawnActor<AProjectile>(
 			ProjectileBlueprint,
