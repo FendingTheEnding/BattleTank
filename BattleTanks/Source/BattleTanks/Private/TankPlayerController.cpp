@@ -30,6 +30,7 @@ ATank* ATankPlayerController::GetControlledTank() const
 */
 void ATankPlayerController::AimTowardsCrosshair()
 {
+	if (!GetPawn()) { return; } // e.g. if not possessing
 	UTankAimingComponent* AimingComponent = GetPawn()->FindComponentByClass<UTankAimingComponent>();
 	if (!AimingComponent) { UE_LOG(LogTemp, Warning, TEXT("No Tank Aiming Component in TankPlayerController.cpp BeginPlay")); }
 
