@@ -19,7 +19,7 @@ void UTankTrack::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UP
 	// Drive the tracks
 
 	// Apply sideways force
-	UE_LOG(LogTemp, Warning, TEXT("On hit: %f"), CurrentThrottle);
+	//UE_LOG(LogTemp, Warning, TEXT("On hit: %f"), CurrentThrottle);
 	ApplyUpDownForce();
 	ApplySidwaysForce();
 	DriveTrack();
