@@ -3,15 +3,11 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
-#include "TankAimingComponent.h"
 // Always do this last
 #include "Tank.generated.h"
 
 // Forward Declaration
-class AProjectile;
-class UTankBarrel; 
-class UTankTurret;
-class UTankAimingComponent;
+//class UTankAimingComponent;
 //class UTankMovementComponent;
 
 UCLASS()
@@ -27,8 +23,8 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-	UPROPERTY(BlueprintReadOnly)
-	UTankAimingComponent* TankAimingComponent = nullptr;
+	//UPROPERTY(BlueprintReadOnly)
+	//UTankAimingComponent* TankAimingComponent = nullptr;
 	//UPROPERTY(BlueprintReadOnly)
 	//UTankMovementComponent* TankMovementComponent = nullptr;
 	
@@ -44,23 +40,21 @@ public:
 	// Called to bind functionality to input
 	//virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-	void AimAt(FVector HitLocation);
+	//void AimAt(FVector HitLocation);
 
-	UFUNCTION(BlueprintCallable)
-	void Fire();
+	
 
+	//UPROPERTY(EditDefaultsOnly, Category = Firing)
+	//float LaunchSpeed = 50000; // 1500 m/s
+	//UPROPERTY(EditDefaultsOnly, Category = Firing)
+	//float ReloadTimeInSeconds = 2.5f;
 
-	UPROPERTY(EditDefaultsOnly, Category = Firing)
-	float LaunchSpeed = 50000; // 1500 m/s
-	UPROPERTY(EditDefaultsOnly, Category = Firing)
-	float ReloadTimeInSeconds = 2.5f;
-
-	UPROPERTY(EditDefaultsOnly, Category = Setup)
-	UClass* ProjectileBlueprint; // Alternative TSubclassOf<AProjectile>* ProjectileBlueprint && Forward Declaration: class AProjectile
+	//UPROPERTY(EditDefaultsOnly, Category = Setup)
+	//UClass* ProjectileBlueprint; // Alternative TSubclassOf<AProjectile>* ProjectileBlueprint && Forward Declaration: class AProjectile
 
 private:
 	// Local barrel reference
-	UTankBarrel* Barrel = nullptr; //TODO remove
+	//UTankBarrel* Barrel = nullptr; //TODO remove
 	
-	double LastFireTime = 0.0;
+	//double LastFireTime = 0.0;
 };

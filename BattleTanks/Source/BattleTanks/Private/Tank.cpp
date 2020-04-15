@@ -2,9 +2,6 @@
 
 
 #include "Tank.h"
-#include "TankBarrel.h"
-#include "Projectile.h"
-#include "TankAimingComponent.h"
 //#include "TankMovementComponent.h"
 
 // Sets default values
@@ -23,7 +20,7 @@ void ATank::BeginPlay()
 {
 	Super::BeginPlay();
 
-	TankAimingComponent = FindComponentByClass<UTankAimingComponent>();
+	//TankAimingComponent = FindComponentByClass<UTankAimingComponent>();
 	
 }
 
@@ -43,14 +40,14 @@ void ATank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 }
 */
-
+/*
 void ATank::AimAt(FVector HitLocation)
 {
 	if (!TankAimingComponent) { UE_LOG(LogTemp, Warning, TEXT("No Tank Aiming Component; Assigned in Tank_BP")); return; }
 	TankAimingComponent->AimAt(HitLocation, LaunchSpeed);
 	
 }
-
+*/
 /*
 // Called via blueprint
 void ATank::SetBarrelReference(UTankBarrel* BarrelToSet)
@@ -65,7 +62,7 @@ void ATank::SetTurretReference(UTankTurret* TurretToSet)
 	TankAimingComponent->SetTurretReference(TurretToSet);
 }
 */
-
+/*
 void ATank::Fire()
 {
 	bool isReloaded = (FPlatformTime::Seconds() - LastFireTime) > ReloadTimeInSeconds;
@@ -83,3 +80,4 @@ void ATank::Fire()
 	}
 
 }
+*/

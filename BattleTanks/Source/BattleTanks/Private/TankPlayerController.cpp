@@ -1,15 +1,14 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "TankPlayerController.h"
-#include "Tank.h"
+#include "TankPlayerController.h" 
 #include "TankAimingComponent.h"
 
 // Called when the game starts or when spawned
 void ATankPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
-	UTankAimingComponent* AimingComponent = GetControlledTank()->FindComponentByClass<UTankAimingComponent>();
+	UTankAimingComponent* AimingComponent = GetPawn()->FindComponentByClass<UTankAimingComponent>();
 	if (!AimingComponent) { UE_LOG(LogTemp, Warning, TEXT("No Tank Aiming Component in TankPlayerController.cpp BeginPlay")); }
 	else
 	{
@@ -23,20 +22,21 @@ void ATankPlayerController::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 	AimTowardsCrosshair();
 }
-
+/*
 ATank* ATankPlayerController::GetControlledTank() const
 {
 	return Cast<ATank>(GetPawn());
 }
-
+*/
 void ATankPlayerController::AimTowardsCrosshair()
 {
-	if (!ensure(GetControlledTank())) { return; }
+	UTankAimingComponent* AimingComponent = GetPawn()->FindComponentByClass<UTankAimingComponent>();
+	if (!AimingComponent) { UE_LOG(LogTemp, Warning, TEXT("No Tank Aiming Component in TankPlayerController.cpp BeginPlay")); }
 
 	FVector HitLocation; //Out Parameter
 	if (GetSightRayHitLocation(HitLocation)) // Has "side-effect", is going to line trace
 	{
-		GetControlledTank()->AimAt(HitLocation);
+		AimingComponent->AimAt(HitLocation);
 	}
 
 	// Get world location of linetrace through crosshair
