@@ -41,7 +41,6 @@ void ATankAIController::Tick(float DeltaTime)
 	{
 		AimingComponent->Fire();
 	}
-
 }
 
 /*
