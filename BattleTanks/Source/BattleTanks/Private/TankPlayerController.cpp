@@ -3,6 +3,7 @@
 
 #include "TankPlayerController.h" 
 #include "TankAimingComponent.h"
+#include "Tank.h"
 
 // Called when the game starts or when spawned
 void ATankPlayerController::BeginPlay()
@@ -79,7 +80,7 @@ bool ATankPlayerController::GetLookVectorHitLocation(FVector LookDirection, FVec
 		HitResult,
 		StartLocation,
 		EndLocation,
-		ECollisionChannel::ECC_Visibility))
+		ECollisionChannel::ECC_Camera))
 	{
 		// Set hit location
 		HitLocation = HitResult.Location;
@@ -88,3 +89,21 @@ bool ATankPlayerController::GetLookVectorHitLocation(FVector LookDirection, FVec
 	HitLocation = FVector(0.0);
 	return false;
 }
+
+void ATankPlayerController::SetPawn(APawn * InPawn)
+{
+	Super::SetPawn(InPawn);
+	if (InPawn)
+	{
+		ATank* PossessedTank = Cast<ATank>(InPawn);
+		if (!ensure(PossessedTank)) { return; }
+
+		PossessedTank->OnDeath.AddUniqueDynamic(this, &ATankPlayerController::OnPossessedTankDeath);
+	}
+}
+
+void ATankPlayerController::OnPossessedTankDeath()
+{
+	StartSpectatingOnly();
+}
+// */

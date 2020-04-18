@@ -6,6 +6,8 @@
 // Always do this last
 #include "Tank.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FTankDelegate);
+
 // Forward Declaration
 //class UTankAimingComponent;
 //class UTankMovementComponent;
@@ -24,6 +26,8 @@ public:
 	UFUNCTION(BlueprintPure, Category = "Health")
 	float GetHealthPercent() const;
 
+	FTankDelegate OnDeath;
+
 	// Call by the engine when actor damage is dealt
 	virtual float TakeDamage(float DamageAmount, struct FDamageEvent const & DamageEvent, class AController * EventInstigator, AActor * DamageCauser) override;
 
@@ -41,7 +45,7 @@ public:
 	int32 StartingHealth = 100;
 
 	UPROPERTY(VisibleAnywhere, Category = "Health")
-	int32 CurrentHealth = StartingHealth;
+	int32 CurrentHealth; // Initialize at BeginPlay()
 
 	// Called every frame
 	//virtual void Tick(float DeltaTime) override;

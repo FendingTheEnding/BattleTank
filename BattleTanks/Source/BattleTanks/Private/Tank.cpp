@@ -21,7 +21,7 @@ void ATank::BeginPlay()
 	Super::BeginPlay();
 
 	//TankAimingComponent = FindComponentByClass<UTankAimingComponent>();
-	
+	CurrentHealth = StartingHealth;
 }
 
 float ATank::GetHealthPercent() const
@@ -39,7 +39,7 @@ float ATank::TakeDamage(float DamageAmount, struct FDamageEvent const & DamageEv
 
 	if (CurrentHealth <= 0)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Dead Boy There!"));
+		OnDeath.Broadcast();
 	}
 
 	return DamageToApply;

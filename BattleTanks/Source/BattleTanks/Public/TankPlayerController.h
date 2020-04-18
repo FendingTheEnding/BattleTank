@@ -25,6 +25,9 @@ protected:
 
 	UFUNCTION(BlueprintImplementableEvent, Category = "Setup")
 	void FoundAimingComponent(UTankAimingComponent* AimCompRef);
+	
+	UFUNCTION()
+	void OnPossessedTankDeath();
 
 public:
 	// Called every frame
@@ -46,5 +49,9 @@ public:
 	float CrosshairYLocation = 0.3333f;
 	UPROPERTY(EditAnywhere)
 	float LineTraceRange = 1000000;
+
+private:
+	virtual void SetPawn(APawn* InPawn) override;
+
 
 };
