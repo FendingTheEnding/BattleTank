@@ -10,6 +10,8 @@
 // Forward Declarations
 class UParticleSystemComponent;
 class URadialForceComponent;
+class UGameplayStatics;
+class UStaticMeshComponent;
 
 UCLASS()
 class BATTLETANKS_API AProjectile : public AActor
@@ -31,6 +33,9 @@ public:
 
 private:
 	UProjectileMovementComponent* ProjectileMovement = nullptr;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Setup")
+	float ProjectileDamage = 50.f;
 
 	UPROPERTY(VisibleAnywhere, Category = "Components")
 	UStaticMeshComponent* CollisionMesh = nullptr;
