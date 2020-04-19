@@ -7,6 +7,7 @@
 #include "SprungWheel.generated.h"
 
 // Forward Declarations
+class USphereComponent;
 class UPhysicsConstraintComponent;
 
 UCLASS()
@@ -27,11 +28,16 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 private:
+	void SetupConstraints();
+
 	// Components
 	UPROPERTY(VisibleAnywhere, Category = "Components")
-	UStaticMeshComponent* Mass = nullptr;
+	USphereComponent* Wheel = nullptr;
 	UPROPERTY(VisibleAnywhere, Category = "Components")
-	UStaticMeshComponent* Wheel = nullptr;
+	USphereComponent* Axle = nullptr;
 	UPROPERTY(VisibleAnywhere, Category = "Components")
 	UPhysicsConstraintComponent* MassWheelConstraint = nullptr;
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+	UPhysicsConstraintComponent* AxleWheelConstraint = nullptr;
+	
 };
